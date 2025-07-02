@@ -7,7 +7,7 @@ var level = 0;
 var speed = 900;
 
 $(document).ready(function () {
-  // Start/Restart Game Button
+  // Start or restart the game
   $("#start-btn").on("click", function () {
     if (!started) {
       startGame();
@@ -29,10 +29,9 @@ function startGame() {
   started = true;
   level = 0;
   gamePattern = [];
-  speed = 900;
   userClickedPattern = [];
-  $("#start-btn").hide(); // Hide button during play
-  $("#level-title").text("Simon Game");
+  speed = 900;
+  $("#start-btn").hide();
   nextSequence();
 }
 
@@ -40,18 +39,11 @@ function nextSequence() {
   userClickedPattern = [];
   level++;
 
-  $("#level-title").text("Level " + level);
-  $("#level-indicator").text("Level: " + level);
-
-  // ... rest of the function
-}
-
-
   if (level > 5) speed = 700;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
 
-  $("#level-indicator").text("Level: " + level);
+  $("#level-title").text("Level " + level);
 
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
@@ -70,7 +62,6 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over");
-    $("#level-indicator").text("Click to Restart");
     $("#start-btn").text("Restart Game").show();
 
     setTimeout(function () {
@@ -83,7 +74,7 @@ function checkAnswer(currentLevel) {
 
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
-  audio.play().catch((e) => console.log("Sound error:", e));
+  audio.play().catch(e => console.log("Sound failed:", e));
 }
 
 function animatePress(currentColour) {
