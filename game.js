@@ -7,13 +7,14 @@ var level = 0;
 var speed = 900;
 
 $(document).ready(function () {
-  // Start/Restart Game Button
+  // Start or restart game when button is clicked
   $("#start-btn").on("click", function () {
     if (!started) {
       startGame();
     }
   });
 
+  // Button press listener
   $(".btn").on("click", function () {
     if (!started) return;
 
@@ -31,8 +32,7 @@ function startGame() {
   gamePattern = [];
   speed = 900;
   userClickedPattern = [];
-  $("#start-btn").hide(); // Hide button during play
-  $("#level-title").text("Simon Game");
+  $("#start-btn").hide();
   nextSequence();
 }
 
@@ -40,11 +40,13 @@ function nextSequence() {
   userClickedPattern = [];
   level++;
 
+  // Update title with level
+  $("#level-title").text("Level " + level);
+
+  // Adjust speed as game progresses
   if (level > 5) speed = 700;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
-
-  $("#level-indicator").text("Level: " + level);
 
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
@@ -63,13 +65,12 @@ function checkAnswer(currentLevel) {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over");
-    $("#level-indicator").text("Click to Restart");
-    $("#start-btn").text("Restart Game").show();
 
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
 
+    $("#start-btn").text("Restart Game").show();
     startOver();
   }
 }
