@@ -25,19 +25,23 @@ $(document).ready(function () {
 
 function startGame() {
   started = true;
-  $("#start-btn").attr("disabled", true);
-  $("#level-title").text("Level " + level);
+  level = 0;
+  gamePattern = [];
+  $("#start-btn").hide();
   nextSequence();
 }
 
 function nextSequence() {
   userClickedPattern = [];
   level++;
-  $("#level-title").text("Level " + level);
 
+  // Speed up after levels
   if (level > 5) speed = 700;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
+
+  $("#level-title").text("Simon Game");
+  $("#level-indicator").text("Level: " + level);
 
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChosenColour = buttonColours[randomNumber];
@@ -57,7 +61,8 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over, Tap Start to Play Again");
+    $("#level-title").text("Game Over");
+    $("#level-indicator").text("Click Start to Play Again");
 
     setTimeout(function () {
       $("body").removeClass("game-over");
@@ -80,9 +85,6 @@ function animatePress(currentColour) {
 }
 
 function startOver() {
-  level = 0;
-  gamePattern = [];
-  speed = 900;
   started = false;
-  $("#start-btn").attr("disabled", false);
+  $("#start-btn").show();
 }
