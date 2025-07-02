@@ -7,21 +7,13 @@ var level = 0;
 var speed = 900;
 
 $(document).ready(function () {
-  // Start on key press (desktop)
-  $(document).on("keydown", function () {
+  // Start Game Button
+  $("#start-btn").on("click", function () {
     if (!started) {
       startGame();
     }
   });
 
-  // Start on touch or click (mobile or mouse)
-  $(document).on("touchstart click", function () {
-    if (!started) {
-      startGame();
-    }
-  });
-
-  // Button click logic
   $(".btn").on("click", function () {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
@@ -33,6 +25,7 @@ $(document).ready(function () {
 
 function startGame() {
   started = true;
+  $("#start-btn").attr("disabled", true);
   $("#level-title").text("Level " + level);
   nextSequence();
 }
@@ -50,10 +43,7 @@ function nextSequence() {
   var randomChosenColour = buttonColours[randomNumber];
   gamePattern.push(randomChosenColour);
 
-  $("#" + randomChosenColour)
-    .fadeOut(100)
-    .fadeIn(100);
-
+  $("#" + randomChosenColour).fadeOut(100).fadeIn(100);
   playSound(randomChosenColour);
 }
 
@@ -67,7 +57,7 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over, Tap or Press Any Key to Restart");
+    $("#level-title").text("Game Over, Tap Start to Play Again");
 
     setTimeout(function () {
       $("body").removeClass("game-over");
@@ -94,4 +84,5 @@ function startOver() {
   gamePattern = [];
   speed = 900;
   started = false;
+  $("#start-btn").attr("disabled", false);
 }
