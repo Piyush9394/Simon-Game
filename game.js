@@ -6,13 +6,17 @@ var userClickedPattern = [];
 var started = false;
 var level = 0;
 var speed = 900; // Initial game speed
+let touchStarted = false;
 
-$(document).on("click touchstart", function () {
-    if (!started) {
+$("#level-title").on("touchstart click", function (e) {
+    if (!started && !touchStarted) {
+        touchStarted = true;
         $("#level-title").text("Level " + level);
         nextSequence();
         started = true;
     }
+});
+
 });
     if (!started) {
         $("#level-title").text("Level " + level);
