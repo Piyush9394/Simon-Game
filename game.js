@@ -4,20 +4,19 @@ var userClickedPattern = [];
 
 var started = false;
 var level = 0;
-var speed = 900; // Initial game speed
+var speed = 900;
 
-$(document).ready(function () {
-  // Start the game on title tap or click
-  $("#level-title").on("click touchstart", function () {
+$(function () {
+  // Use a single event on the entire body to catch any interaction
+  $("body").on("touchstart click", function () {
     if (!started) {
+      started = true;
       $("#level-title").text("Level " + level);
       nextSequence();
-      started = true;
     }
   });
 
-  // Handle user button click
-  $(".btn").on("click touchstart", function () {
+  $(".btn").on("click", function () {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
 
@@ -58,7 +57,7 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over, Tap to Restart");
+    $("#level-title").text("Game Over, Tap Anywhere to Restart");
 
     setTimeout(function () {
       $("body").removeClass("game-over");
@@ -70,7 +69,7 @@ function checkAnswer(currentLevel) {
 
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
-  audio.play();
+  audio.play().catch((e) => console.log("Sound failed:", e));
 }
 
 function animatePress(currentColour) {
