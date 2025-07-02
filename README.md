@@ -39,7 +39,8 @@ A simple, interactive **Simon Game** built with HTML, CSS, JavaScript, and jQuer
 🔹 Enhance UI with better animations  
 
 ## 📸 Screenshot  
-![image](https://github.com/user-attachments/assets/c4a6a532-cb0d-4185-9425-9e3713fe39bd)
+![image](https://github.com/user-attachments/assets/b13ddc34-4afe-44c8-92b0-5680b9b8e8c6)
+
 
 
 ## 🎵 Credits  
