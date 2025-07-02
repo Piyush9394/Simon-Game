@@ -4,7 +4,7 @@ var userClickedPattern = [];
 
 var started = false;
 var level = 0;
-var speed = 900;
+var speed = 800;
 
 $(document).ready(function () {
   // Start or restart the game
@@ -39,7 +39,7 @@ function nextSequence() {
   userClickedPattern = [];
   level++;
 
-  if (level > 5) speed = 700;
+  if (level > 5) speed = 600;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
 
