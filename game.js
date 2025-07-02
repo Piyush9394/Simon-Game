@@ -7,8 +7,8 @@ var level = 0;
 var speed = 900;
 
 $(function () {
-  // Use a single event on the entire body to catch any interaction
-  $("body").on("touchstart click", function () {
+  // Start on key press (desktop) or tap anywhere (mobile)
+  $(document).on("keydown touchstart click", function (e) {
     if (!started) {
       started = true;
       $("#level-title").text("Level " + level);
@@ -57,7 +57,7 @@ function checkAnswer(currentLevel) {
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
-    $("#level-title").text("Game Over, Tap Anywhere to Restart");
+    $("#level-title").text("Game Over, Tap or Press Any Key to Restart");
 
     setTimeout(function () {
       $("body").removeClass("game-over");
