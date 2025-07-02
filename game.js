@@ -40,6 +40,13 @@ function nextSequence() {
   userClickedPattern = [];
   level++;
 
+  $("#level-title").text("Level " + level);
+  $("#level-indicator").text("Level: " + level);
+
+  // ... rest of the function
+}
+
+
   if (level > 5) speed = 700;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
