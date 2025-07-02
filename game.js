@@ -7,7 +7,7 @@ var level = 0;
 var speed = 900;
 
 $(document).ready(function () {
-  // Start Game Button
+  // Start/Restart Game Button
   $("#start-btn").on("click", function () {
     if (!started) {
       startGame();
@@ -15,6 +15,8 @@ $(document).ready(function () {
   });
 
   $(".btn").on("click", function () {
+    if (!started) return;
+
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
     playSound(userChosenColour);
@@ -27,7 +29,10 @@ function startGame() {
   started = true;
   level = 0;
   gamePattern = [];
-  $("#start-btn").hide();
+  speed = 900;
+  userClickedPattern = [];
+  $("#start-btn").hide(); // Hide button during play
+  $("#level-title").text("Simon Game");
   nextSequence();
 }
 
@@ -35,12 +40,10 @@ function nextSequence() {
   userClickedPattern = [];
   level++;
 
-  // Speed up after levels
   if (level > 5) speed = 700;
   if (level > 10) speed = 500;
   if (level > 15) speed = 300;
 
-  $("#level-title").text("Simon Game");
   $("#level-indicator").text("Level: " + level);
 
   var randomNumber = Math.floor(Math.random() * 4);
@@ -54,15 +57,14 @@ function nextSequence() {
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
     if (userClickedPattern.length === gamePattern.length) {
-      setTimeout(function () {
-        nextSequence();
-      }, speed);
+      setTimeout(nextSequence, speed);
     }
   } else {
     playSound("wrong");
     $("body").addClass("game-over");
     $("#level-title").text("Game Over");
-    $("#level-indicator").text("Click Start to Play Again");
+    $("#level-indicator").text("Click to Restart");
+    $("#start-btn").text("Restart Game").show();
 
     setTimeout(function () {
       $("body").removeClass("game-over");
@@ -74,17 +76,16 @@ function checkAnswer(currentLevel) {
 
 function playSound(name) {
   var audio = new Audio("sounds/" + name + ".mp3");
-  audio.play().catch((e) => console.log("Sound failed:", e));
+  audio.play().catch((e) => console.log("Sound error:", e));
 }
 
 function animatePress(currentColour) {
   $("#" + currentColour).addClass("pressed");
-  setTimeout(function () {
+  setTimeout(() => {
     $("#" + currentColour).removeClass("pressed");
   }, 100);
 }
 
 function startOver() {
   started = false;
-  $("#start-btn").show();
 }
