@@ -24,6 +24,14 @@ body {
   cursor: not-allowed;
 }
 
+#level-indicator {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+
 
 .btn {
     margin: 25px;
