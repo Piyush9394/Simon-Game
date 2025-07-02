@@ -6,26 +6,36 @@ var started = false;
 var level = 0;
 var speed = 900;
 
-$(function () {
-  // Start on key press (desktop) or tap anywhere (mobile)
-  $(document).on("keydown touchstart click", function (e) {
+$(document).ready(function () {
+  // Start on key press (desktop)
+  $(document).on("keydown", function () {
     if (!started) {
-      started = true;
-      $("#level-title").text("Level " + level);
-      nextSequence();
+      startGame();
     }
   });
 
+  // Start on touch or click (mobile or mouse)
+  $(document).on("touchstart click", function () {
+    if (!started) {
+      startGame();
+    }
+  });
+
+  // Button click logic
   $(".btn").on("click", function () {
     var userChosenColour = $(this).attr("id");
     userClickedPattern.push(userChosenColour);
-
     playSound(userChosenColour);
     animatePress(userChosenColour);
-
     checkAnswer(userClickedPattern.length - 1);
   });
 });
+
+function startGame() {
+  started = true;
+  $("#level-title").text("Level " + level);
+  nextSequence();
+}
 
 function nextSequence() {
   userClickedPattern = [];
