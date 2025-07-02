@@ -7,7 +7,7 @@ var started = false;
 var level = 0;
 var speed = 900; // Initial game speed
 
-$(document).keydown(function () {
+$(document).click(function () {
     if (!started) {
         $("#level-title").text("Level " + level);
         nextSequence();
