@@ -7,7 +7,13 @@ var started = false;
 var level = 0;
 var speed = 900; // Initial game speed
 
-$(document).click(function () {
+$(document).on("click touchstart", function () {
+    if (!started) {
+        $("#level-title").text("Level " + level);
+        nextSequence();
+        started = true;
+    }
+});
     if (!started) {
         $("#level-title").text("Level " + level);
         nextSequence();
